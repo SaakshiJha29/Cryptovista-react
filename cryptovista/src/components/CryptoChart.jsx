@@ -57,8 +57,8 @@ const CryptoChart = ({ darkMode }) => {
             {
               label: `${selectedCoin.toUpperCase()} - Last 7 Days`,
               data: prices,
-              borderColor: "#8b5cf6",
-              backgroundColor: "rgba(139,92,246,0.2)",
+              borderColor: "#6366f1",
+              backgroundColor: "rgba(99, 102, 241, 0.2)",
               tension: 0.4,
               fill: true,
             },
@@ -74,7 +74,7 @@ const CryptoChart = ({ darkMode }) => {
   return (
     <section className="chart-section">
       <div className="chart-header">
-        <h2>📊 Market Trend</h2>
+        <h2>Market Trend</h2>
 
         <div className="custom-dropdown">
           <div
@@ -104,12 +104,53 @@ const CryptoChart = ({ darkMode }) => {
       </div>
 
       {error && (
-        <p>⚠ API limit reached. Please refresh after 1 minute.</p>
+        <p style={{ color: '#ef4444', textAlign: 'center', padding: '2rem' }}>
+          ⚠ API limit reached. Please refresh after 1 minute.
+        </p>
       )}
 
-      {!error && chartData && <Line data={chartData} />}
+      {!error && chartData && (
+        <div style={{ height: '400px' }}>
+          <Line 
+            data={chartData} 
+            options={{
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                legend: {
+                  labels: {
+                    color: darkMode ? '#e2e8f0' : '#0f172a'
+                  }
+                }
+              },
+              scales: {
+                y: {
+                  grid: {
+                    color: darkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'
+                  },
+                  ticks: {
+                    color: darkMode ? '#e2e8f0' : '#0f172a'
+                  }
+                },
+                x: {
+                  grid: {
+                    color: darkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'
+                  },
+                  ticks: {
+                    color: darkMode ? '#e2e8f0' : '#0f172a'
+                  }
+                }
+              }
+            }}
+          />
+        </div>
+      )}
 
-      {!error && !chartData && <p>Loading chart...</p>}
+      {!error && !chartData && (
+        <div style={{ textAlign: 'center', padding: '2rem' }}>
+          <p>Loading chart...</p>
+        </div>
+      )}
     </section>
   );
 };

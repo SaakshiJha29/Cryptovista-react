@@ -2,7 +2,7 @@ const Loader = () => {
   return (
     <section className="table-section">
       <div className="loader-container">
-        <div className="spinner"></div>
+        <div className="loader"></div>
         <p>Loading data...</p>
       </div>
     </section>

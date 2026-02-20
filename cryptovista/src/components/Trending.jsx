@@ -18,7 +18,7 @@ const Trending = () => {
 
   return (
     <section className="trending-section">
-      <h2>🔥 Trending Coins</h2>
+      <h2> Trending Coins</h2>
       {error ? (
         <p>Error loading trending coins: {error}</p>
       ) : (

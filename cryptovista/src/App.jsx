@@ -5,7 +5,6 @@ import Trending from "./components/Trending";
 import CryptoTable from "./components/CryptoTable";
 import CryptoChart from "./components/CryptoChart";
 
-
 function App() {
   const [darkMode, setDarkMode] = useState(true);
   const [error, setError] = useState(null);
@@ -14,7 +13,6 @@ function App() {
     document.body.className = darkMode ? "dark" : "light";
   }, [darkMode]);
 
-  // Error handler
   useEffect(() => {
     const handleError = (event) => {
       console.error("Global error:", event.error);
@@ -25,24 +23,30 @@ function App() {
     return () => window.removeEventListener("error", handleError);
   }, []);
 
-  return (
-    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-      {error && (
-        <div style={{
-          background: "#ef4444",
-          color: "white",
-          padding: "20px",
-          margin: "10px"
-        }}>
-          <strong>Error:</strong> {error}
-          <button onClick={() => window.location.reload()}>Reload Page</button>
+  if (error) {
+    return (
+      <div className="error-screen">
+        <div className="error-content">
+          <span className="error-emoji">🌋</span>
+          <h2>Something erupted</h2>
+          <p>{error}</p>
+          <button className="error-btn" onClick={() => window.location.reload()}>
+            <span>↻</span> Try Again
+          </button>
         </div>
-      )}
+      </div>
+    );
+  }
+
+  return (
+    <div className="app">
       <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
-      <Hero />
-      <Trending />
-      <CryptoTable />
-      <CryptoChart darkMode={darkMode} />
+      <main>
+        <Hero />
+        <Trending />
+        <CryptoTable />
+        <CryptoChart darkMode={darkMode} />
+      </main>
     </div>
   );
 }
